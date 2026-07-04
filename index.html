@@ -27,8 +27,7 @@
     }
 
     html { scroll-behavior: auto; }
-    body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; cursor: none; }
-    @media (hover: none) { body { cursor: auto; } }
+    body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
 
     /* ── NAV ── */
     nav {
@@ -534,21 +533,8 @@
     .btn-hero        { animation: jlFadeUp 0.55s cubic-bezier(0.16,1,0.3,1) 0.88s both; }
     .btn-hero-outline{ animation: jlFadeUp 0.55s cubic-bezier(0.16,1,0.3,1) 1.02s both; }
 
-    /* ── CUSTOM CURSOR ── */
-    .jl-cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
-    .jl-cursor__dot {
-      position: fixed; width: 6px; height: 6px;
-      top: -3px; left: -3px;
-      border-radius: 50%; background: #000;
-      will-change: transform;
-    }
-    .jl-cursor__ring {
-      position: fixed; width: 38px; height: 38px;
-      top: -19px; left: -19px;
-      border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.25);
-      will-change: transform; transition: border-color 0.3s;
-    }
-    @media (hover: none) { .jl-cursor { display: none; } }
+    /* ── CUSTOM CURSOR (disabled) ── */
+    .jl-cursor { display: none; }
 
     /* GSAP manages will-change dynamically — no static hints needed */
 
@@ -1218,25 +1204,7 @@
         });
       });
 
-      // 2. Custom cursor
-      const dot  = document.querySelector('.jl-cursor__dot');
-      const ring = document.querySelector('.jl-cursor__ring');
-      if (dot && ring && window.matchMedia('(hover: hover)').matches) {
-        let mx = 0, my = 0, rx = 0, ry = 0;
-        window.addEventListener('mousemove', e => {
-          mx = e.clientX; my = e.clientY;
-          gsap.to(dot, { x: mx, y: my, duration: 0.06, ease: 'none' });
-        });
-        gsap.ticker.add(() => {
-          rx += (mx - rx) * 0.11;
-          ry += (my - ry) * 0.11;
-          gsap.set(ring, { x: rx, y: ry });
-        });
-        document.querySelectorAll('a, button').forEach(el => {
-          el.addEventListener('mouseenter', () => gsap.to(ring, { scale: 1.7, borderColor: 'rgba(124,58,237,0.5)', duration: 0.35, ease: 'power2.out' }));
-          el.addEventListener('mouseleave', () => gsap.to(ring, { scale: 1, borderColor: 'rgba(0,0,0,0.25)', duration: 0.4, ease: 'power2.out' }));
-        });
-      }
+      // 2. Custom cursor — disabled, using default OS cursor
 
       // 3. Nav border on scroll
       const nav = document.querySelector('nav');
