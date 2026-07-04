@@ -1183,6 +1183,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <script>
+    // ── Clear hero button animations after they finish so hover transform works ──
+    document.querySelectorAll('.btn-hero, .btn-hero-outline').forEach(el => {
+      el.addEventListener('animationend', () => {
+        el.style.animation = 'none';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      }, { once: true });
+    });
+
     // ── FAQ toggle ────────────────────────────────────────
     function toggleFaq(btn) {
       const item = btn.closest('.faq-item');
