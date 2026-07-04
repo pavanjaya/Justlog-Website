@@ -518,21 +518,70 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .feature-row { flex-direction: column !important; gap: 48px; padding: 60px 24px; }
+      .feature-row { flex-direction: column !important; gap: 48px; padding: 60px 32px; }
       .feature-text, .feature-visual { max-width: 100%; }
       .phone { width: 240px; height: 480px; }
+      .stats-strip { padding: 48px 32px; }
+      .features-intro { padding: 72px 32px 0; }
+      .how, .categories, .faq { padding: 80px 32px; }
+      .cta-section { padding: 96px 32px; }
+      footer { padding: 72px 32px 48px; }
     }
+
     @media (max-width: 640px) {
-      nav { padding: 0 20px; }
+      /* Nav */
+      nav { padding: 0 20px; height: 64px; }
+      .nav-logo img { height: 32px; }
       .nav-links a:not(.nav-cta) { display: none; }
-      .hero { padding: 72px 24px 60px; }
-      .hero h1 { letter-spacing: -2px; }
-      .stats-strip { flex-direction: column; }
-      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
-      .stat-item:last-child { border-bottom: none; }
-      .how, .categories, .faq, footer { padding-left: 24px; padding-right: 24px; }
-      .cta-section { padding: 72px 24px; }
-      .footer-top { gap: 32px; }
+      .nav-cta { padding: 9px 18px !important; font-size: 14px !important; }
+
+      /* Hero */
+      .hero-wrap { padding-top: 64px; }
+      .hero { padding: 56px 20px 48px; }
+      .hero h1 { font-size: clamp(38px, 10vw, 54px); letter-spacing: -1.5px; line-height: 1.08; }
+      .hero-sub { font-size: 15px; margin-bottom: 36px; }
+      .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 0; }
+      .btn-hero, .btn-hero-outline { width: 100%; justify-content: center; padding: 17px 24px; font-size: 16px; }
+
+      /* Stats */
+      .stats-strip { padding: 36px 20px; gap: 10px; flex-direction: column; }
+      .stat-item { padding: 24px 20px; }
+      .stat-num { font-size: 22px; }
+
+      /* Features */
+      .features-intro { padding: 60px 20px 0; }
+      .section-h2 { letter-spacing: -0.8px; }
+      .section-p { font-size: 15px; }
+      .feature-row { padding: 48px 20px; gap: 36px; }
+      .feature-text h3 { font-size: clamp(26px, 7vw, 34px); letter-spacing: -0.5px; }
+      .feature-text .lead { font-size: 15px; }
+      .feature-visual img { max-width: 100% !important; }
+      .phone { width: 220px; height: 440px; }
+
+      /* How it works */
+      .how, .categories { padding: 60px 20px; }
+
+      /* CTA */
+      .cta-section { padding: 72px 20px; }
+      .cta-section h2 { letter-spacing: -1.5px; }
+      .cta-p { font-size: 15px; margin-bottom: 36px; }
+      .cta-btns { flex-direction: column; align-items: stretch; gap: 10px; }
+      .btn-white, .btn-white-outline { width: 100%; justify-content: center; }
+
+      /* FAQ */
+      .faq { padding: 60px 20px; }
+      .faq-q { font-size: 14px; }
+
+      /* Footer */
+      footer { padding: 56px 20px 36px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-brand { max-width: 100%; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 6px; }
+    }
+
+    @media (max-width: 400px) {
+      .hero h1 { font-size: 34px; }
+      .cta-section h2 { font-size: 34px; letter-spacing: -1px; }
     }
 
     /* ── HERO ENTRANCE (CSS — no rAF dependency) ── */
