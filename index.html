@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Justlog, Log money the way you talk.</title>
+  <meta name="description" content="The simplest way to track money. Just type what you spent, Justlog categorises it, summarises it, and gives you clarity instantly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7C3AED;
+      --purple-2: #9748FF;
+      --purple-soft: rgba(124,58,237,0.08);
+      --bg: #FEFEFC;
+      --bg2: #FEFEFC;
+      --text: #000000;
+      --muted: #000000;
+      --muted2: #9CA3AF;
+      --border: transparent;
+      --border2: transparent;
+      --green: #059669;
+      --red: #DC2626;
+    }
+
+    html { scroll-behavior: auto; }
+    body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; cursor: none; }
+    @media (hover: none) { body { cursor: auto; } }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+      background: rgba(254,254,252,0.85);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo img { height: 38px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a { font-size: 16px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 8px 16px; border-radius: 10px; transition: color 0.15s, background 0.15s; }
+    .nav-links a:hover { color: var(--text); background: var(--bg2); }
+    .nav-cta { background: var(--text) !important; color: #fff !important; padding: 10px 22px !important; border-radius: 12px !important; font-size: 15px !important; font-weight: 600 !important; }
+    .nav-cta:hover { opacity: 0.85; background: var(--text) !important; }
+
+    /* ── HERO ── */
+        .hero-wrap {
+      padding-top: 72px;
+      background: #FEFEFC;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-wrap::before { display: none;
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse at center, rgba(124,58,237,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero {
+      max-width: 960px; margin: 0 auto;
+      padding: 96px 48px 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--purple-soft);
+      border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 100px; padding: 5px 16px 5px 8px;
+      font-size: 12px; font-weight: 600; color: var(--purple);
+      letter-spacing: 0.01em;
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+    .hero h1 {
+      font-size: clamp(48px, 6vw, 88px);
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1.0;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    .hero h1 em { font-style: normal; color: var(--purple); }
+
+    .hero-sub {
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 560px; margin: 0 auto 48px;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 64px;
+    }
+
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--text); color: #fff; text-decoration: none;
+      padding: 18px 36px; border-radius: 16px;
+      font-size: 17px; font-weight: 700; letter-spacing: -0.2px;
+    }
+    .btn-hero:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-hero-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--text); text-decoration: none;
+      padding: 18px 36px; border-radius: 16px;
+      font-size: 17px; font-weight: 600;
+      border: 1.5px solid #D1D5DB;
+    }
+    .btn-hero-outline:hover { border-color: #6B7280; transform: translateY(-2px); }
+
+    /* Hero input preview */
+    .hero-preview {
+      max-width: 560px; margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    .preview-topbar {
+      display: flex; align-items: center; gap: 6px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border2);
+      background: #FAFAFA;
+    }
+    .preview-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    .preview-body { padding: 20px; }
+
+    .preview-input-row {
+      display: flex; align-items: center; gap: 10px;
+      background: #F9FAFB; border: 1.5px solid #E5E7EB;
+      border-radius: 10px; padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+    .preview-input-text { font-size: 14px; color: var(--text); font-weight: 500; flex: 1; text-align: left; }
+    .preview-cursor { display: inline-block; width: 2px; height: 14px; background: var(--purple); animation: blink 1s infinite; vertical-align: middle; margin-left: 2px; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .preview-parsing {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--purple); font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .preview-parsing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulse 1.5s infinite; }
+
+    .preview-result {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #F0FDF4; border: 1px solid #BBF7D0;
+      border-radius: 10px; padding: 12px 16px;
+    }
+    .preview-result-left { display: flex; align-items: center; gap: 10px; }
+    .preview-result-icon { width: 32px; height: 32px; border-radius: 8px; background: #DCFCE7; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .preview-result-label { font-size: 13px; font-weight: 600; color: var(--text); }
+    .preview-result-cat { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .preview-result-amount { font-size: 15px; font-weight: 700; color: var(--text); }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      padding: 64px 48px;
+      display: flex;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      flex: 1; padding: 32px 28px;
+      border-radius: 20px;
+      background: #F5F6F3;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .stat-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stat-num {
+      font-size: 26px; font-weight: 800; letter-spacing: -0.5px;
+      color: var(--text); line-height: 1;
+    }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; line-height: 1.4; }
+
+    /* ── FEATURES INTRO ── */
+    .features-intro {
+      text-align: center; padding: 96px 48px 0;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px; font-weight: 600; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+    .section-h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; letter-spacing: -1.5px;
+      color: var(--text); line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-p {
+      font-size: 17px; color: var(--muted);
+      line-height: 1.7; max-width: 520px; margin: 0 auto;
+    }
+
+    /* ── FEATURE ROWS ── */
+    .feature-row {
+      display: flex; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+      padding: 80px 48px;
+      gap: 80px;
+    }
+    .feature-row.flip { flex-direction: row-reverse; }
+    .feature-row + .feature-row { border-top: 1px solid var(--border); }
+
+    .feature-text { flex: 1; max-width: 460px; }
+
+    .feature-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 4px 12px; border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .badge-free { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
+    .badge-pro { background: var(--purple-soft); color: var(--purple); border: 1px solid rgba(124,58,237,0.2); }
+    .badge-neutral { background: #F3F4F6; color: #374151; border: 1px solid #E5E7EB; }
+
+    .feature-text h3 {
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800; letter-spacing: -1px;
+      line-height: 1.1; color: var(--text);
+      margin-bottom: 16px;
+    }
+    .feature-text h3 em { font-style: normal; color: var(--purple); }
+
+    .feature-text .lead {
+      font-size: 16px; font-weight: 500;
+      color: var(--text); line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .feature-text p {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.75; margin-bottom: 24px;
+    }
+
+    .feature-list { display: flex; flex-direction: column; gap: 8px; }
+    .feature-list-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--muted); line-height: 1.5;
+    }
+    .feature-list-item svg { flex-shrink: 0; margin-top: 2px; }
+
+    .feature-visual {
+      flex: 1; max-width: 440px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Phone frame */
+    .phone {
+      width: 256px; height: 510px;
+      background: #fff; border-radius: 38px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .phone-bar {
+      height: 44px; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .phone-notch-pill { width: 72px; height: 20px; background: #0A0A0A; border-radius: 10px; }
+    .phone-screen { flex: 1; background: #F9FAFB; padding: 12px; display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
+
+    /* Phone UI elements */
+    .p-header { display: flex; align-items: center; justify-content: space-between; padding: 0 2px 8px; }
+    .p-title { font-size: 13px; font-weight: 700; color: #0A0A0A; }
+    .p-tag { font-size: 10px; font-weight: 600; color: var(--purple); background: var(--purple-soft); padding: 2px 8px; border-radius: 100px; }
+
+    .p-balance {
+      background: var(--purple); border-radius: 14px; padding: 14px;
+      color: #fff; text-align: center;
+    }
+    .p-bal-label { font-size: 10px; opacity: 0.65; margin-bottom: 3px; }
+    .p-bal-amount { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+
+    .p-divider { font-size: 9px; color: #C4C4C4; text-align: center; }
+
+    .p-tx { background: #fff; border-radius: 10px; padding: 9px 11px; display: flex; align-items: center; gap: 9px; }
+    .p-tx-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .p-tx-info { flex: 1; }
+    .p-tx-name { font-size: 11px; font-weight: 600; color: #0A0A0A; }
+    .p-tx-cat { font-size: 9px; color: #9CA3AF; margin-top: 1px; }
+    .p-tx-amt { font-size: 11px; font-weight: 700; }
+    .p-tx-amt.exp { color: #0A0A0A; }
+    .p-tx-amt.inc { color: #059669; }
+
+    .p-input {
+      background: #fff; border: 1.5px solid rgba(124,58,237,0.25);
+      border-radius: 10px; padding: 9px 12px;
+      display: flex; align-items: center; gap: 8px;
+      margin-top: auto;
+    }
+    .p-input span { font-size: 11px; color: #6B7280; }
+
+    .p-space-row { background: #fff; border-radius: 10px; padding: 9px 12px; display: flex; align-items: center; gap: 9px; }
+    .p-space-dot { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .p-space-name { font-size: 11px; font-weight: 600; color: #0A0A0A; flex: 1; }
+    .p-space-sub { font-size: 9px; color: #9CA3AF; }
+    .p-space-badge { font-size: 9px; font-weight: 700; color: var(--purple); background: var(--purple-soft); padding: 2px 7px; border-radius: 100px; }
+
+    /* Card visual (non-phone) */
+    .feature-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.03), 0 12px 32px rgba(0,0,0,0.05);
+      width: 100%;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: #F5F6F3; padding: 96px 48px; border-top: 1px solid var(--border); }
+    .how-inner { max-width: 960px; margin: 0 auto; }
+
+    .steps {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: start;
+      gap: 0;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .step-icon-wrap {
+      width: 64px; height: 64px; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .step-icon-wrap svg { display: block; }
+    .step-num-badge {
+      position: absolute; top: -6px; right: -6px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      font-size: 10px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid #fff;
+    }
+    .step-body h4 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .step-body p { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 220px; margin: 0 auto; }
+
+    .step-arrow {
+      display: flex; align-items: center; padding-top: 32px;
+      color: var(--border);
+    }
+    .step-arrow svg { display: block; }
+
+    @media (max-width: 680px) {
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+      .step-arrow { display: none; }
+      .step { padding: 0; }
+    }
+
+    /* ── CATEGORIES ── */
+    .categories { background: #F5F6F3; padding: 96px 48px; border-top: 1px solid var(--border); }
+    .cat-wrap { max-width: 800px; margin: 48px auto 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .cat-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 100px; padding: 8px 16px;
+      font-size: 13px; font-weight: 500; color: var(--text);
+      transition: border-color 0.15s;
+    }
+    .cat-pill:hover { border-color: #aaa; }
+    .cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── DOWNLOAD CTA ── */
+    .cta-section {
+      background: var(--text); padding: 100px 48px; text-align: center;
+    }
+    .cta-section h2 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 900; letter-spacing: -2px;
+      color: #fff; margin-bottom: 16px; line-height: 1.05;
+    }
+    .cta-section h2 em { font-style: normal; color: #A78BFA; }
+    .cta-p { font-size: 17px; color: rgba(255,255,255,0.55); margin-bottom: 48px; line-height: 1.6; }
+
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #fff; color: var(--text); text-decoration: none;
+      padding: 14px 26px; border-radius: 12px;
+      font-size: 15px; font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    .btn-white:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-white-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      padding: 14px 26px; border-radius: 12px;
+      font-size: 15px; font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-white-outline:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+    /* ── FAQ ── */
+    .faq { background: #F5F6F3; padding: 96px 48px; }
+    .faq-inner { max-width: 960px; margin: 0 auto; }
+
+
+
+    .faq-sidebar-link {
+    }
+
+    .faq-content { display: flex; flex-direction: column; gap: 48px; max-width: 760px; margin: 48px auto 0; }
+
+    .faq-group { }
+    .faq-group:last-child { margin-bottom: 0; }
+    .faq-group-label {
+      font-size: 11px; font-weight: 700; color: var(--muted2);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .faq-list { display: flex; flex-direction: column; background: #FEFEFC; border-radius: 16px; padding: 0 24px; }
+    .faq-item {
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-q {
+      width: 100%; text-align: left; padding: 20px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 15px; font-weight: 600; color: var(--text);
+      background: none; border: none; cursor: pointer; gap: 16px;
+      transition: color 0.15s;
+    }
+    .faq-q:hover { color: var(--purple); }
+
+    .faq-chevron {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: #F3F4F6;
+      color: #6B7280; transition: transform 0.25s, color 0.2s, background 0.2s;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--purple); background: rgba(124,58,237,0.1); }
+
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s ease;
+      padding: 0;
+      font-size: 14px; color: #4B5563; line-height: 1.75;
+    }
+    .faq-item.open .faq-a { max-height: 500px; padding-bottom: 20px; }
+    .faq-a a { color: var(--purple); text-decoration: none; }
+    .faq-a a:hover { text-decoration: underline; }
+    .faq-a strong { color: var(--text); }
+
+    @media (max-width: 720px) {
+      .faq-layout { grid-template-columns: 1fr; gap: 32px; }
+      .faq-sidebar { display: flex; flex-wrap: wrap; gap: 8px; position: static; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 80px 48px 48px;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; flex-wrap: wrap;
+      gap: 48px; max-width: 1100px; margin: 0 auto;
+      padding-bottom: 56px; border-bottom: 1px solid var(--border);
+    }
+    .footer-brand { max-width: 260px; }
+    .footer-logo img { height: 24px; width: auto; }
+    .footer-tagline { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+    .footer-col h5 { font-size: 11px; font-weight: 700; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .footer-col a { display: block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 8px; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1100px; margin: 0 auto; padding-top: 32px; }
+    .footer-copy { font-size: 12px; color: var(--muted2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .feature-row { flex-direction: column !important; gap: 48px; padding: 60px 24px; }
+      .feature-text, .feature-visual { max-width: 100%; }
+      .phone { width: 240px; height: 480px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 72px 24px 60px; }
+      .hero h1 { letter-spacing: -2px; }
+      .stats-strip { flex-direction: column; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-item:last-child { border-bottom: none; }
+      .how, .categories, .faq, footer { padding-left: 24px; padding-right: 24px; }
+      .cta-section { padding: 72px 24px; }
+      .footer-top { gap: 32px; }
+    }
+
+    /* ── HERO ENTRANCE (CSS — no rAF dependency) ── */
+    @keyframes jlFadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+    .hero-eyebrow    { animation: jlFadeUp 0.70s cubic-bezier(0.16,1,0.3,1) 0.10s both; }
+    .hero h1         { animation: jlFadeUp 1.00s cubic-bezier(0.16,1,0.3,1) 0.28s both; }
+    .hero-sub        { animation: jlFadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.62s both; }
+    .btn-hero        { animation: jlFadeUp 0.55s cubic-bezier(0.16,1,0.3,1) 0.88s both; }
+    .btn-hero-outline{ animation: jlFadeUp 0.55s cubic-bezier(0.16,1,0.3,1) 1.02s both; }
+
+    /* ── CUSTOM CURSOR ── */
+    .jl-cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
+    .jl-cursor__dot {
+      position: fixed; width: 6px; height: 6px;
+      top: -3px; left: -3px;
+      border-radius: 50%; background: #000;
+      will-change: transform;
+    }
+    .jl-cursor__ring {
+      position: fixed; width: 38px; height: 38px;
+      top: -19px; left: -19px;
+      border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.25);
+      will-change: transform; transition: border-color 0.3s;
+    }
+    @media (hover: none) { .jl-cursor { display: none; } }
+
+    /* GSAP manages will-change dynamically — no static hints needed */
+
+    /* ── NAV TRANSITION ── */
+    nav { transition: border-color 0.4s ease; }
+
+    /* ── STAT ITEM HOVER ── */
+    .stat-item { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; cursor: default; }
+
+    /* ── FEATURE CARD HOVER ── */
+    .feature-card { transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease; cursor: default; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo" style="text-decoration:none;"><img src="logo.svg" alt="Justlog" /></a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://app.justlog.in" target="_blank" class="nav-cta">Open App →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero-wrap">
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        AI-powered · Free to start
+      </div>
+
+      <h1>Log money<br/>the way you <em>talk.</em></h1>
+
+      <p class="hero-sub">
+        No forms. No categories. No friction.<br/>
+        Just type what you spent, Justlog understands and handles the rest.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#download" class="btn-hero">
+          <!-- Google Play icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.609 1.814L13.792 12 3.61 22.186a1.5 1.5 0 01-.61-1.2V3.014c0-.49.24-.94.609-1.2z" fill="white" opacity="0.9"/>
+            <path d="M17.04 8.26l2.2 1.24c1.01.57 1.01 2.43 0 3L17.04 13.74 14.2 12l2.84-3.74z" fill="white"/>
+            <path d="M13.792 12L3.609 22.186l10.1-5.686L13.792 12z" fill="white" opacity="0.6"/>
+            <path d="M13.792 12l.117-4.5-10.3-5.686L13.792 12z" fill="white" opacity="0.8"/>
+          </svg>
+          Get the App, Free
+        </a>
+        <a href="https://app.justlog.in" class="btn-hero-outline" target="_blank">
+          <!-- Globe / web icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+          Try Web App
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Input preview -->
+    </div>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-icon" style="background:rgba(124,58,237,0.10);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#7C3AED" opacity=".15"/>
+          <text x="12" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="#7C3AED" font-family="sans-serif">AI</text>
+          <circle cx="12" cy="12" r="9" stroke="#7C3AED" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+      <div class="stat-num">Any</div>
+      <div class="stat-label">Language, powered by Gemini AI</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon" style="background:rgba(16,185,129,0.10);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" fill="#059669" fill-opacity=".12" stroke="none"/>
+          <polyline points="12 6 12 12 16 14" stroke="#059669"/>
+          <circle cx="12" cy="12" r="9" stroke="#059669" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+      <div class="stat-num">&lt;1s</div>
+      <div class="stat-label">To log a transaction</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon" style="background:rgba(245,158,11,0.10);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9" fill="#D97706" fill-opacity=".12" stroke="#D97706" stroke-width="1.5"/>
+          <path d="M12 7v1m0 8v1M9.5 9.5a2.5 2.5 0 015 0c0 1.5-1 2-2.5 2.5V14" stroke="#D97706"/>
+        </svg>
+      </div>
+      <div class="stat-num">Free</div>
+      <div class="stat-label">Forever plan, no card needed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon" style="background:rgba(59,130,246,0.10);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="7" width="18" height="13" rx="2" fill="#2563EB" fill-opacity=".12" stroke="#2563EB" stroke-width="1.5"/>
+          <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="#2563EB"/>
+          <line x1="9" y1="12" x2="9" y2="12" stroke-width="2.5"/>
+          <line x1="12" y1="12" x2="15" y2="12"/>
+          <path d="M8 16l2-2 2 2 4-4" stroke="#2563EB"/>
+        </svg>
+      </div>
+      <div class="stat-num">Zero</div>
+      <div class="stat-label">Bank connections required</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div id="features" style="border-top:1px solid var(--border);">
+    <div class="features-intro">
+      <span class="eyebrow">Why Justlog</span>
+      <h2 class="section-h2">Just log it. We handle the rest.</h2>
+      <p class="section-p">No categories to pick. No forms to fill. No spreadsheets to maintain. Type what happened, Justlog figures out everything else instantly.</p>
+    </div>
+
+    <!-- 1. Logging -->
+    <div class="feature-row">
+      <div class="feature-text">
+        <h3>Type it or say it.<br/><em>Done in a second.</em></h3>
+        <p class="lead">The fastest way to track money, ever.</p>
+        <p>Type what you spent in plain language. AI reads it, identifies what it is, and logs it with the right category, amount, and type income or expense, automatically. No dropdowns. No form fields. Nothing to configure.</p>
+        <div class="feature-list">
+          <div class="feature-list-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Works in any language, powered by Gemini AI
+          </div>
+          <div class="feature-list-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Voice input, speak naturally, done
+          </div>
+          <div class="feature-list-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Quick chips for repeat entries, one tap
+          </div>
+          <div class="feature-list-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Category, amount, type, all auto-assigned
+          </div>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <img src="logging-screenshot.png" alt="Justlog app home screen" style="width:100%;max-width:460px;height:auto;display:block;background:transparent;" />
+      </div>
+    </div>
+
+    <!-- 2. Spaces -->
+    <div class="feature-row flip" style="background:#FEFEFC;">
+      <div class="feature-text">
+        <h3>One app. Multiple spaces.<br/><em>Total clarity.</em></h3>
+        <p class="lead">Keep different parts of your financial life separate, cleanly.</p>
+        <p>Create a Work space for reimbursable expenses. A Travel space for your next trip. A Home space for shared bills. Each Space is a completely isolated ledger, its own transactions, balance, summary, and settings. Switch between them in one tap.</p>
+        <div class="feature-list">
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Free plan includes one Personal space</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Pro unlocks unlimited spaces</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Archive finished spaces, they stay accessible</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Link spaces for a combined overview</div>
+        </div>
+      </div>
+      <div class="feature-visual" style="display:flex;align-items:center;justify-content:center;">
+        <img src="spaces-screenshot.png" alt="Justlog Spaces" style="width:100%;max-width:460px;height:auto;display:block;background:transparent;" />
+      </div>
+    </div>
+
+    <!-- 3. Split -->
+    <div class="feature-row">
+      <div class="feature-text">
+        <h3>Group trips,<br/><em>without the drama.</em></h3>
+        <p class="lead">Shared trips and bills, finally sorted.</p>
+        <p>Create a Split Space for any group. Justlog tracks who paid what, calculates the fair share per person, and shows a live settlement summary, so everyone always knows the score.</p>
+        <p><strong>Solo Split</strong>, you manage, others don't need the app. Type "Lunch paid by Alex $45" and two entries are created automatically. <strong>Group Split</strong>, each person logs their own, everything syncs to one shared ledger.</p>
+        <div class="feature-list">
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>One entry → two transactions created automatically</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Live settlement, who owes what, always current</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Invite members via link, free to join</div>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <div class="phone">
+          <div class="phone-bar"><div class="phone-notch-pill"></div></div>
+          <div class="phone-screen">
+            <div class="p-header"><div class="p-title">NYC Trip</div><div class="p-tag">Split · 4</div></div>
+            <div class="p-divider">You typed: "Lunch paid by Alex $45"</div>
+            <div class="p-divider" style="color:var(--purple);font-weight:600;font-size:10px;">↓ 2 entries auto-created</div>
+            <div class="p-tx" style="border:1px solid #BBF7D0;">
+              <div class="p-tx-icon" style="background:#DCFCE7;">💸</div>
+              <div class="p-tx-info"><div class="p-tx-name">From Alex</div><div class="p-tx-cat">Transfer · 12:14 pm</div></div>
+              <div class="p-tx-amt inc">+$45</div>
+            </div>
+            <div class="p-tx" style="border:1px solid #FDE68A;">
+              <div class="p-tx-icon" style="background:#FEF3C7;">🍽️</div>
+              <div class="p-tx-info"><div class="p-tx-name">Lunch</div><div class="p-tx-cat">Food & Dining · 12:14 pm</div></div>
+              <div class="p-tx-amt exp">−$45</div>
+            </div>
+            <div class="p-divider" style="margin-top:4px;">Settlement</div>
+            <div style="background:#fff;border-radius:10px;padding:10px 11px;font-size:10px;line-height:2;color:#6B7280;">
+              Per person: <strong style="color:#0A0A0A;">$63.75</strong><br/>
+              Alex paid $120 → gets back <span style="color:#059669;font-weight:600;">$56.25</span><br/>
+              Sam paid $20 → owes <span style="color:#DC2626;font-weight:600;">$43.75</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Story -->
+    <div class="feature-row flip" style="background:var(--bg2);">
+      <div class="feature-text">
+        <h3>See your spending<br/>as a <em>clear picture.</em></h3>
+        <p class="lead">Numbers are forgettable. Patterns are not.</p>
+        <p>The Story screen turns your transaction list into a visual category breakdown, updated in real time. See instantly where money went: how much on food, transport, shopping. No extra setup, no configuration needed.</p>
+        <div class="feature-list">
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Category breakdown with colour-coded bars</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Income vs expense at a glance</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Updates the moment you log anything</div>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <div class="phone">
+          <div class="phone-bar"><div class="phone-notch-pill"></div></div>
+          <div class="phone-screen">
+            <div class="p-header"><div class="p-title">Story</div><div class="p-tag">July</div></div>
+            <div style="background:#fff;border-radius:12px;padding:12px;">
+              <div style="font-size:9px;color:#9CA3AF;margin-bottom:4px;">TOTAL SPENT</div>
+              <div style="font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#0A0A0A;">$2,845</div>
+              <div style="font-size:9px;color:#059669;margin-top:2px;font-weight:600;">↓ 12% vs last month</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px;margin-top:2px;">
+              <div style="font-size:9px;color:#9CA3AF;font-weight:600;">TOP CATEGORIES</div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;"><span style="font-weight:600;color:#0A0A0A;">Food & Dining</span><span style="font-weight:700;color:#0A0A0A;">$842</span></div>
+                <div style="height:5px;background:#F3F4F6;border-radius:3px;"><div style="width:56%;height:100%;background:#7C3AED;border-radius:3px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;"><span style="font-weight:600;color:#0A0A0A;">Transport</span><span style="font-weight:700;color:#0A0A0A;">$520</span></div>
+                <div style="height:5px;background:#F3F4F6;border-radius:3px;"><div style="width:35%;height:100%;background:#F59E0B;border-radius:3px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;"><span style="font-weight:600;color:#0A0A0A;">Shopping</span><span style="font-weight:700;color:#0A0A0A;">$410</span></div>
+                <div style="height:5px;background:#F3F4F6;border-radius:3px;"><div style="width:28%;height:100%;background:#3B82F6;border-radius:3px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;"><span style="font-weight:600;color:#0A0A0A;">Health</span><span style="font-weight:700;color:#0A0A0A;">$240</span></div>
+                <div style="height:5px;background:#F3F4F6;border-radius:3px;"><div style="width:16%;height:100%;background:#10B981;border-radius:3px;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. AI Search -->
+    <div class="feature-row">
+      <div class="feature-text">
+        <h3>Ask.<br/><em>Don't search.</em></h3>
+        <p class="lead">Stop scrolling. Start asking.</p>
+        <p>AI Search lets you query your entire transaction history in plain language. Ask anything, by category, by person, by time period. Justlog understands what you mean and surfaces the answer instantly.</p>
+        <div class="feature-list">
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>"How much did I spend on food this month?"</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>"Show all transactions with Alex"</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>"What's my biggest expense this week?"</div>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <div class="phone">
+          <div class="phone-bar"><div class="phone-notch-pill"></div></div>
+          <div class="phone-screen">
+            <div class="p-header"><div class="p-title">AI Search</div></div>
+            <div class="p-input">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <span style="color:#0A0A0A;font-weight:500;">Food this month<span class="preview-cursor"></span></span>
+            </div>
+            <div style="background:#EDE9FE;border-radius:10px;padding:11px;border:1px solid rgba(124,58,237,0.15);">
+              <div style="font-size:9px;color:var(--purple);font-weight:700;margin-bottom:5px;">AI ANSWER</div>
+              <div style="font-size:11px;color:#0A0A0A;line-height:1.55;">You spent <strong>$842</strong> on Food & Dining in July across 14 transactions. That's $120 more than last month.</div>
+            </div>
+            <div class="p-divider">14 results</div>
+            <div class="p-tx">
+              <div class="p-tx-icon" style="background:#FEF3C7;">🍔</div>
+              <div class="p-tx-info"><div class="p-tx-name">Lunch</div><div class="p-tx-cat">Food & Dining · Yesterday</div></div>
+              <div class="p-tx-amt exp">−$35</div>
+            </div>
+            <div class="p-tx">
+              <div class="p-tx-icon" style="background:#FEF3C7;">☕</div>
+              <div class="p-tx-info"><div class="p-tx-name">Coffee</div><div class="p-tx-cat">Food & Dining · Monday</div></div>
+              <div class="p-tx-amt exp">−$6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Export -->
+    <div class="feature-row flip" style="background:var(--bg2);">
+      <div class="feature-text">
+        <h3>Export your records<br/>in <em>one tap.</em></h3>
+        <p class="lead">Tax time. Accountant. Reimbursement. Always ready.</p>
+        <p>Export any Space as a clean PDF report or CSV spreadsheet. Choose your date range and download instantly. The PDF includes a summary, category breakdown, and full transaction history. The CSV is structured for Excel, Google Sheets, or any accounting tool.</p>
+        <div class="feature-list">
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>PDF, formatted report with category breakdown</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>CSV, clean spreadsheet for any accounting tool</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 month · 3 months · 6 months · 1 year · All time</div>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <div class="feature-card" style="max-width:340px;">
+          <div style="font-size:12px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Export Range</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;">
+            <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;background:var(--purple);color:#fff;">1 Month</span>
+            <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;background:#F3F4F6;color:#374151;">3 Months</span>
+            <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;background:#F3F4F6;color:#374151;">6 Months</span>
+            <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;background:#F3F4F6;color:#374151;">All time</span>
+          </div>
+          <div style="display:flex;gap:10px;margin-bottom:16px;">
+            <div style="flex:1;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;">
+              <div style="width:36px;height:36px;border-radius:10px;background:#FEF2F2;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:#0A0A0A;">PDF</div>
+              <div style="font-size:10px;color:#9CA3AF;margin-top:2px;">Report</div>
+            </div>
+            <div style="flex:1;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;">
+              <div style="width:36px;height:36px;border-radius:10px;background:#F0FDF4;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:#0A0A0A;">CSV</div>
+              <div style="font-size:10px;color:#9CA3AF;margin-top:2px;">Spreadsheet</div>
+            </div>
+          </div>
+          <div style="background:#0A0A0A;border-radius:10px;padding:12px;text-align:center;color:#fff;font-size:12px;font-weight:700;cursor:pointer;">↓ Download</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Privacy -->
+    <div class="feature-row">
+      <div class="feature-text">
+        <h3>Your data.<br/><em>Only yours.</em></h3>
+        <p class="lead">We take privacy seriously, because financial data is personal.</p>
+        <p>Justlog is a manual journal. No bank connection. No SMS access. No automatic imports. You choose what goes in. Encrypted in transit and at rest, with row-level security, your data is invisible to every other user.</p>
+        <div class="feature-list">
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>No bank connection, no SMS access, ever</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Encrypted at rest (AES-256) and in transit (TLS)</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Row-level security, invisible to all other users</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Optional PIN lock for device-level protection</div>
+          <div class="feature-list-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>We never sell your data, not ever</div>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;">
+          <div class="feature-card" style="padding:20px;display:flex;align-items:flex-start;gap:14px;border-radius:14px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:#F0FDF4;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div><div style="font-size:13px;font-weight:700;color:#0A0A0A;margin-bottom:3px;">No bank access ever</div><div style="font-size:12px;color:#6B7280;line-height:1.5;">Manual only. We never connect to your bank, read SMS, or import anything automatically.</div></div>
+          </div>
+          <div class="feature-card" style="padding:20px;display:flex;align-items:flex-start;gap:14px;border-radius:14px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:#EDE9FE;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div><div style="font-size:13px;font-weight:700;color:#0A0A0A;margin-bottom:3px;">Encrypted & isolated</div><div style="font-size:12px;color:#6B7280;line-height:1.5;">All data encrypted at rest and in transit. Row-level security means your data is invisible to everyone else.</div></div>
+          </div>
+          <div class="feature-card" style="padding:20px;display:flex;align-items:flex-start;gap:14px;border-radius:14px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:#F0F9FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+            <div><div style="font-size:13px;font-weight:700;color:#0A0A0A;margin-bottom:3px;">PIN lock</div><div style="font-size:12px;color:#6B7280;line-height:1.5;">Lock the app with a PIN. Even if someone has your phone, your finances stay private.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="how-inner">
+      <div style="text-align:center;">
+        <span class="eyebrow">How it works</span>
+        <h2 class="section-h2">Three steps. That's it.</h2>
+        <p class="section-p">No onboarding maze. No tutorial. No credit card required.<br/>Just open and start.</p>
+      </div>
+      <div class="steps">
+
+        <!-- Step 1 -->
+        <div class="step">
+          <div class="step-icon-wrap" style="background:rgba(124,58,237,0.08);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <div class="step-num-badge">1</div>
+          </div>
+          <div class="step-body">
+            <h4>Sign up in 10 seconds</h4>
+            <p>Email or Google. Your Personal space is ready instantly, no setup, no survey, no billing.</p>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="step-arrow">
+          <svg width="32" height="16" viewBox="0 0 32 16" fill="none"><path d="M0 8h28M22 2l8 6-8 6" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+          <div class="step-icon-wrap" style="background:rgba(16,185,129,0.08);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <div class="step-num-badge">2</div>
+          </div>
+          <div class="step-body">
+            <h4>Type or speak what you spent</h4>
+            <p>Say "lunch $12" or "gas $65". AI parses it, assigns a category, and logs it in under a second.</p>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="step-arrow">
+          <svg width="32" height="16" viewBox="0 0 32 16" fill="none"><path d="M0 8h28M22 2l8 6-8 6" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+          <div class="step-icon-wrap" style="background:rgba(245,158,11,0.08);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <div class="step-num-badge">3</div>
+          </div>
+          <div class="step-body">
+            <h4>See where your money goes</h4>
+            <p>Open Story for a visual breakdown. Search with AI. Export for tax time. Finally clear.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories">
+    <div style="text-align:center;">
+      <span class="eyebrow">Smart Categories</span>
+      <h2 class="section-h2">Auto-categorised,<br/>every time.</h2>
+      <p class="section-p">Justlog assigns the right category instantly, no tagging, no manual selection, ever.</p>
+    </div>
+    <div class="cat-wrap">
+      <div class="cat-pill"><div class="cat-dot" style="background:#7C3AED;"></div>Food & Dining</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#F59E0B;"></div>Transport</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#3B82F6;"></div>Shopping</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#6366F1;"></div>Bills & Utilities</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#10B981;"></div>Health & Medical</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#EF4444;"></div>Rent & Housing</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#84CC16;"></div>Entertainment</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#059669;"></div>Salary & Income</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#F97316;"></div>Education</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#8B5CF6;"></div>Investments</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#EC4899;"></div>Personal Care</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#6B7280;"></div>Others</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="download">
+    <h2>Start logging<br/>today. It's <em>free.</em></h2>
+    <p class="cta-p">No credit card. No commitment. Your Personal space is ready the moment you sign up.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-white">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#01875F"><path d="M3.18 23.76c.37.2.8.2 1.18.01l17.59-9.9c.76-.43.76-1.51 0-1.94L4.36.03C3.97-.17 3.53-.1 3.18.12 2.83.34 2.6.72 2.6 1.14v21.72c0 .42.23.8.58 1z"/></svg>
+        Google Play
+      </a>
+      <a href="https://app.justlog.in" class="btn-white-outline" target="_blank">Open Web App →</a>
+    </div>
+    <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.25);">iOS coming soon</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-inner">
+      <div style="text-align:center;">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="section-h2">Common questions.</h2>
+      </div>
+
+      <!-- Category tabs -->
+<div class="faq-content">
+
+      <div class="faq-group" id="faq-g1">
+        <div class="faq-group-label">Getting Started</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Is Justlog free?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Yes the free plan includes one Personal space with unlimited transactions, AI logging, Story summary, and voice input. Forever free, no time limit. Pro unlocks multiple spaces, Split spaces, AI Search, PDF & CSV export, Space linking, and PIN lock.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Do I need an account?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Yes a free account saves your data and syncs across devices. Sign up with Google or email. Takes about 10 seconds, no billing required.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Is there a web version?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Yes <a href="https://app.justlog.in" target="_blank">app.justlog.in</a> works on any device. iPhone users: open in Safari and tap "Add to Home Screen" for a full-screen experience. A native iOS app is coming soon.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-group" id="faq-g2">
+        <div class="faq-group-label">Logging Money</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">How does natural language logging work?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Type a description of what you spent in any language. Gemini AI reads it, extracts the amount and category, and logs it automatically. "lunch $12" → Food expense, $12. "salary $4500" → Income entry. No forms, no dropdowns, nothing to configure.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Which languages does Justlog support?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Any language. Powered by Gemini AI, Justlog understands virtually every language English, Arabic, French, Japanese, Spanish, and hundreds more. Just type naturally in whatever language you think in.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Can I edit or delete a transaction?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Yes. Tap any transaction to edit the description, amount, category, date, or type. Changes reflect immediately in your balance and Story summary.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-group" id="faq-g3">
+        <div class="faq-group-label">Spaces & Split</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">What is a Space?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">A Space is a separate financial context, like Personal, Work, or Travel. Each has its own transaction list, balance, summary, and settings. Switch between them in one tap. Free plan includes one Personal space; Pro unlocks unlimited.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">What's the difference between Solo Split and Group Split?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a"><strong>Solo Split</strong>, you manage everything, others don't need the app. Type "Lunch paid by Alex $45" and Justlog creates two entries automatically.<br/><br/><strong>Group Split</strong>, each person joins via invite link and logs their own. Everything syncs into one shared ledger in real time.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">How does settlement work?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Justlog calculates the fair share per person, then shows each person's balance, who paid more than their share (gets back) and who paid less (owes). The summary updates in real time as transactions are added.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-group" id="faq-g4">
+        <div class="faq-group-label">Privacy & Security</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Is my financial data secure?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Yes. Data is stored on AWS infrastructure with AES-256 encryption at rest and TLS in transit. Row-level security means your data is completely invisible to all other users. We don't sell data or share it for advertising. <a href="https://app.justlog.in/privacy" target="_blank">Privacy Policy →</a></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Does Justlog connect to my bank?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">No. Justlog is a manual journal. No bank connection, no SMS reading, no automatic imports of any kind. You choose what goes in nothing happens without your explicit action.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-group" id="faq-g5">
+        <div class="faq-group-label">Subscription</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">What's included in the free trial?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">7 days of full Pro access no credit card required. If you don't subscribe, your account stays on the free plan and all your data is kept.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">What happens if I cancel Pro?<span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="faq-a">Your account reverts to the free plan. You keep your Personal space and all transactions. Extra spaces become read-only, nothing is deleted. Cancel anytime from Settings or Google Play.</div>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- /faq-content -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo-black.svg" alt="Justlog" style="height:28px;width:auto;" />
+        <p class="footer-tagline">The simplest way to track money. Type what you spent, we handle the rest.</p>
+        <div style="display:flex;gap:10px;margin-top:20px;">
+          <!-- Instagram solid -->
+          <a href="#" target="_blank" title="Instagram" style="width:36px;height:36px;border-radius:10px;background:#F5F6F3;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.15s;" onmouseover="this.style.background='#000';this.querySelector('svg').style.fill='#fff'" onmouseout="this.style.background='#F5F6F3'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#6B7280"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- LinkedIn solid -->
+          <a href="#" target="_blank" title="LinkedIn" style="width:36px;height:36px;border-radius:10px;background:#F5F6F3;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.15s;" onmouseover="this.style.background='#000';this.querySelector('svg').style.fill='#fff'" onmouseout="this.style.background='#F5F6F3'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#6B7280"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <!-- Facebook solid -->
+          <a href="#" target="_blank" title="Facebook" style="width:36px;height:36px;border-radius:10px;background:#F5F6F3;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.15s;" onmouseover="this.style.background='#000';this.querySelector('svg').style.fill='#fff'" onmouseout="this.style.background='#F5F6F3'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#6B7280"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <!-- X solid -->
+          <a href="#" target="_blank" title="X / Twitter" style="width:36px;height:36px;border-radius:10px;background:#F5F6F3;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.15s;" onmouseover="this.style.background='#000';this.querySelector('svg').style.fill='#fff'" onmouseout="this.style.background='#F5F6F3';this.querySelector('svg').style.fill='#6B7280'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#6B7280" style="transition:fill 0.15s;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#download">Download</a>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:jangidpavan@gmail.com">Contact</a>
+        <a href="https://app.justlog.in/privacy" target="_blank">Privacy Policy</a>
+        <a href="https://app.justlog.in/terms" target="_blank">Terms</a>
+      </div>
+      <div class="footer-col">
+        <h5>Download</h5>
+        <a href="#">Google Play</a>
+        <a href="https://app.justlog.in" target="_blank">Web App</a>
+        <a href="#">iOS (soon)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Justlog · A brand of <span style="color:var(--text);font-weight:500;">Hueness Design Private Limited</span> · Made with ♥ in India</div>
+      <div class="footer-copy"><a href="https://app.justlog.in/privacy" target="_blank" style="color:inherit;text-decoration:none;">Privacy</a> · <a href="https://app.justlog.in/terms" target="_blank" style="color:inherit;text-decoration:none;">Terms</a></div>
+    </div>
+  </footer>
+
+  <!-- Custom cursor -->
+  <div class="jl-cursor">
+    <div class="jl-cursor__dot"></div>
+    <div class="jl-cursor__ring"></div>
+  </div>
+
+  <!-- Motion libraries -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    // ── FAQ toggle ────────────────────────────────────────
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ── Motion system ─────────────────────────────────────
+    (function () {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Lenis smooth scroll
+      const lenis = new Lenis({
+        duration: 1.25,
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+      });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(time => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      // Smooth anchor navigation
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const id = a.getAttribute('href');
+          const target = document.querySelector(id);
+          if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -72, duration: 1.4 }); }
+        });
+      });
+
+      // 2. Custom cursor
+      const dot  = document.querySelector('.jl-cursor__dot');
+      const ring = document.querySelector('.jl-cursor__ring');
+      if (dot && ring && window.matchMedia('(hover: hover)').matches) {
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        window.addEventListener('mousemove', e => {
+          mx = e.clientX; my = e.clientY;
+          gsap.to(dot, { x: mx, y: my, duration: 0.06, ease: 'none' });
+        });
+        gsap.ticker.add(() => {
+          rx += (mx - rx) * 0.11;
+          ry += (my - ry) * 0.11;
+          gsap.set(ring, { x: rx, y: ry });
+        });
+        document.querySelectorAll('a, button').forEach(el => {
+          el.addEventListener('mouseenter', () => gsap.to(ring, { scale: 1.7, borderColor: 'rgba(124,58,237,0.5)', duration: 0.35, ease: 'power2.out' }));
+          el.addEventListener('mouseleave', () => gsap.to(ring, { scale: 1, borderColor: 'rgba(0,0,0,0.25)', duration: 0.4, ease: 'power2.out' }));
+        });
+      }
+
+      // 3. Nav border on scroll
+      const nav = document.querySelector('nav');
+      ScrollTrigger.create({
+        start: 'top -40',
+        onEnter:     () => gsap.to(nav, { borderBottomColor: 'rgba(0,0,0,0.07)', duration: 0.4 }),
+        onLeaveBack: () => gsap.to(nav, { borderBottomColor: 'transparent', duration: 0.4 }),
+      });
+
+      // 4. Hero entrance — CSS @keyframes handles this (no rAF dependency)
+
+      // Helper: scroll reveal with immediateRender:false so elements stay visible until triggered
+      const IR = { immediateRender: false };
+      function reveal(targets, trigger, extra) {
+        gsap.from(targets, Object.assign({ scrollTrigger: { trigger: trigger || targets, start: 'top 86%' }, y: 28, opacity: 0, duration: 0.75, ease: 'power3.out' }, IR, extra || {}));
+      }
+
+      // 5. Stats strip
+      reveal('.stat-item', '.stats-strip', { stagger: 0.12 });
+
+      // 6. Section headings
+      gsap.utils.toArray('.eyebrow, .section-h2, .section-p').forEach(el => {
+        gsap.from(el, Object.assign({ scrollTrigger: { trigger: el, start: 'top 88%' }, y: 24, opacity: 0, duration: 0.72, ease: 'power3.out' }, IR));
+      });
+
+      // 7. Feature rows
+      gsap.utils.toArray('.feature-row').forEach(row => {
+        const flip   = row.classList.contains('flip');
+        const visual = row.querySelector('.feature-visual');
+        const h3     = row.querySelector('h3');
+        const lead   = row.querySelector('.lead');
+        const paras  = row.querySelectorAll('.feature-text p:not(.lead)');
+        const items  = row.querySelectorAll('.feature-list-item');
+        const trig   = { trigger: row, start: 'top 82%' };
+
+        if (h3)          gsap.from(h3,    Object.assign({ scrollTrigger: trig, y: 28, opacity: 0, duration: 0.8,  ease: 'power3.out' }, IR));
+        if (lead)        gsap.from(lead,  Object.assign({ scrollTrigger: trig, y: 20, opacity: 0, duration: 0.7,  ease: 'power3.out', delay: 0.1 }, IR));
+        if (paras.length) gsap.from(paras, Object.assign({ scrollTrigger: trig, y: 18, opacity: 0, duration: 0.65, ease: 'power3.out', delay: 0.18, stagger: 0.1 }, IR));
+        if (visual)      gsap.from(visual, Object.assign({ scrollTrigger: trig, x: flip ? -36 : 36, opacity: 0, duration: 1.0, ease: 'power3.out', delay: 0.12 }, IR));
+        if (items.length) gsap.from(items, Object.assign({ scrollTrigger: { trigger: row, start: 'top 78%' }, y: 14, opacity: 0, duration: 0.5, ease: 'power3.out', stagger: 0.09, delay: 0.25 }, IR));
+
+        // Parallax scrub on visual
+        if (visual) gsap.to(visual, { scrollTrigger: { trigger: row, start: 'top bottom', end: 'bottom top', scrub: 1.8 }, y: -24 });
+      });
+
+      // 8. How it works
+      gsap.from('.step',       Object.assign({ scrollTrigger: { trigger: '.steps', start: 'top 82%' }, y: 32, opacity: 0, duration: 0.7,  ease: 'power3.out', stagger: 0.22 }, IR));
+      gsap.from('.step-arrow', Object.assign({ scrollTrigger: { trigger: '.steps', start: 'top 82%' }, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.22, delay: 0.55 }, IR));
+
+      // 9. Category pills
+      gsap.from('.cat-pill', Object.assign({ scrollTrigger: { trigger: '.cat-wrap', start: 'top 85%' }, y: 20, opacity: 0, duration: 0.55, ease: 'power3.out', stagger: 0.05 }, IR));
+
+      // 10. CTA
+      gsap.from(['.cta-section h2', '.cta-p', '.cta-btns'], Object.assign({ scrollTrigger: { trigger: '.cta-section', start: 'top 80%' }, y: 32, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.18 }, IR));
+
+      // 11. FAQ
+      gsap.from('.faq-group', Object.assign({ scrollTrigger: { trigger: '.faq-content', start: 'top 82%' }, y: 26, opacity: 0, duration: 0.65, ease: 'power3.out', stagger: 0.18 }, IR));
+
+      // 12. Footer
+      gsap.from('.footer-top > *', Object.assign({ scrollTrigger: { trigger: 'footer', start: 'top 88%' }, y: 20, opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1 }, IR));
+
+      // 13. Hover lifts
+      document.querySelectorAll('.stat-item').forEach(card => {
+        card.addEventListener('mouseenter', () => gsap.to(card, { y: -6, boxShadow: '0 12px 40px rgba(0,0,0,0.09)', duration: 0.35, ease: 'power2.out' }));
+        card.addEventListener('mouseleave', () => gsap.to(card, { y: 0, boxShadow: 'none', duration: 0.4, ease: 'power2.out' }));
+      });
+      document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mouseenter', () => gsap.to(card, { y: -7, scale: 1.015, boxShadow: '0 16px 48px rgba(0,0,0,0.1)', duration: 0.35, ease: 'power2.out' }));
+        card.addEventListener('mouseleave', () => gsap.to(card, { y: 0, scale: 1, boxShadow: '0 4px 6px rgba(0,0,0,0.03), 0 12px 32px rgba(0,0,0,0.05)', duration: 0.4, ease: 'power2.out' }));
+      });
+
+      // 14. Phone float
+      document.querySelectorAll('.phone').forEach(phone => {
+        gsap.to(phone, { y: -8, duration: 3.5, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+      });
+
+    })();
+  </script>
+</body>
+</html>
