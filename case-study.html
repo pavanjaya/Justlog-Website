@@ -354,6 +354,56 @@
       max-width: none; margin-bottom: 0;
     }
 
+    /* PRINCIPLE TAGS on features */
+    .ux-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .ux-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; padding: 5px 12px;
+      font-size: 12px; font-weight: 700; color: var(--muted);
+    }
+    .ux-tag .ux-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
+
+    /* FUNDAMENTALS GRID */
+    .fund-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 20px; margin-top: 48px;
+    }
+    .fund-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px;
+      position: relative; overflow: hidden;
+    }
+    .fund-card::after {
+      content: attr(data-law);
+      position: absolute; bottom: -8px; right: 20px;
+      font-size: 80px; font-weight: 900; color: rgba(124,58,237,0.05);
+      line-height: 1; pointer-events: none; white-space: nowrap;
+    }
+    .fund-law {
+      display: inline-block;
+      background: var(--purple-light); color: var(--purple);
+      font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .fund-card h3 {
+      font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
+      margin-bottom: 12px; line-height: 1.3;
+    }
+    .fund-card p {
+      font-size: 15px; color: var(--muted); line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .fund-card p:last-child { margin-bottom: 0; }
+    .fund-card p strong { color: var(--text); font-weight: 700; }
+    .fund-applied {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--purple);
+      font-weight: 700;
+    }
+
     /* NOT BUILT */
     .notbuilt-grid {
       display: grid; grid-template-columns: repeat(2, 1fr);
@@ -594,6 +644,81 @@
     </div>
   </div>
 
+  <!-- DESIGN FUNDAMENTALS -->
+  <div class="section">
+    <div class="section-label">Design Fundamentals</div>
+    <h2>The UX principles that <em>backed every call.</em></h2>
+    <p>Intuition isn't enough at a leadership level. Every major design decision in Justlog can be traced back to an established UX principle. Here's the framework that governed the product — applied, not just cited.</p>
+
+    <div class="fund-grid">
+      <div class="fund-card" data-law="Hick">
+        <div class="fund-law">Hick's Law</div>
+        <h3>More choices = slower decisions = abandoned sessions</h3>
+        <p>Hick's Law states that the time to make a decision increases logarithmically with the number of options. Every money logging app violates this by presenting category dropdowns, sub-categories, and transaction types upfront.</p>
+        <p><strong>Justlog's answer:</strong> one input. Type or speak. The AI makes the categorisation decision so the user never has to. The only choice presented at logging time is "confirm or edit" — two options, maximum speed.</p>
+        <div class="fund-applied">↳ Applied in: Core logging input, Quick chips, Confirmation step</div>
+      </div>
+
+      <div class="fund-card" data-law="Jakob">
+        <div class="fund-law">Jakob's Law</div>
+        <h3>Users spend most of their time in other apps</h3>
+        <p>Jakob's Law: users prefer interfaces that work like the ones they already know. The most familiar input in the world right now is a messaging text field. Everyone knows how to type in a box and hit send.</p>
+        <p><strong>Justlog's answer:</strong> the logging interface looks and feels exactly like a messaging app. No onboarding needed. No tutorial. The mental model is already there — Justlog just borrows it.</p>
+        <div class="fund-applied">↳ Applied in: Logging input UI, Voice input, Stories swipe navigation</div>
+      </div>
+
+      <div class="fund-card" data-law="Cognitive">
+        <div class="fund-law">Cognitive Load Theory</div>
+        <h3>Reduce what the brain has to hold in working memory</h3>
+        <p>Working memory is limited. Every field you ask a user to fill, every decision you ask them to make, every label they have to read and interpret is a tax on cognitive resources. The more you tax users, the sooner they abandon the task.</p>
+        <p><strong>Justlog's answer:</strong> the AI absorbs cognitive work that traditionally falls on the user. Amount, category, merchant, date — all extracted automatically. The user's only job is to describe what happened in their own words.</p>
+        <div class="fund-applied">↳ Applied in: AI parsing, No-category design, Quick chips</div>
+      </div>
+
+      <div class="fund-card" data-law="Progressive">
+        <div class="fund-law">Progressive Disclosure</div>
+        <h3>Show only what's needed, exactly when it's needed</h3>
+        <p>Progressive Disclosure is the practice of revealing information and functionality gradually — only when the user needs it. Overwhelming users with all features at once increases cognitive load and reduces task completion.</p>
+        <p><strong>Justlog's answer:</strong> the home screen shows only recent transactions and the input. Insights are in Stories. Group expenses are in Spaces. Settings are tucked away. Each layer reveals itself when the user is ready for it, not before.</p>
+        <div class="fund-applied">↳ Applied in: Navigation architecture, Spaces, Stories, Settings</div>
+      </div>
+
+      <div class="fund-card" data-law="Feedback">
+        <div class="fund-law">Feedback Loops</div>
+        <h3>Every action needs an immediate, clear response</h3>
+        <p>Users need to know that their actions have been registered and understood. Without feedback, users repeat actions, lose trust, or assume the system is broken. This is especially critical when AI is involved — it feels like a black box without visible feedback.</p>
+        <p><strong>Justlog's answer:</strong> the AI confirmation step isn't just a safety net — it's a feedback loop. Users see exactly what the AI understood before it saves. Optimistic UI on approve/deny actions gives instant visual confirmation even before the server responds.</p>
+        <div class="fund-applied">↳ Applied in: AI confirmation card, Optimistic UI on Spaces, Trial banner</div>
+      </div>
+
+      <div class="fund-card" data-law="Mental">
+        <div class="fund-law">Mental Models</div>
+        <h3>Design for how users already think, not how data is stored</h3>
+        <p>A mental model is the internal representation a user has of how a system works. When the system matches the mental model, it feels intuitive. When it doesn't, users feel confused and blame themselves.</p>
+        <p><strong>Justlog's answer:</strong> people think about money in stories and moments — "I went to Starbucks before my meeting." Not in rows of a spreadsheet. Justlog's transaction list reads like a journal, not a ledger. Export filters use human time ("3 Months") not fiscal periods ("Q1").</p>
+        <div class="fund-applied">↳ Applied in: Transaction feed design, Export filters, Stories format</div>
+      </div>
+
+      <div class="fund-card" data-law="Error">
+        <div class="fund-law">Error Prevention</div>
+        <h3>Prevent mistakes before they happen — don't just handle them after</h3>
+        <p>Nielsen's heuristic #5: it's better to prevent errors than to have good error messages. In finance, an incorrect log is worse than no log — it corrupts the user's financial picture and erodes trust in the product.</p>
+        <p><strong>Justlog's answer:</strong> the AI confirmation step before every save is an error prevention mechanism. In Spaces, certain actions require approval before execution. The trial banner persists so users never accidentally miss their trial window. Every destructive action requires deliberate confirmation.</p>
+        <div class="fund-applied">↳ Applied in: AI confirmation step, Spaces approval flow, Trial UX</div>
+      </div>
+
+      <div class="fund-card" data-law="Aesthetic">
+        <div class="fund-law">Aesthetic-Usability Effect</div>
+        <h3>Beautiful products are perceived as easier to use</h3>
+        <p>The Aesthetic-Usability Effect: users perceive aesthetically pleasing designs as more usable, even when they aren't functionally different. More importantly, attractive interfaces create emotional goodwill — users tolerate minor friction better when they like how something looks.</p>
+        <p><strong>Justlog's answer:</strong> the visual design system — the purple brand colour, the tight typography, the rounded cards, the smooth animations — is deliberate. A well-designed finance app signals trustworthiness. Users are more willing to hand over their financial data to something that looks considered.</p>
+        <div class="fund-applied">↳ Applied in: Visual design system, Landing page, Onboarding screens</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><hr /></div>
+
   <!-- FEATURE DEEP DIVES -->
   <div class="section">
     <div class="section-label">Feature Design</div>
@@ -611,6 +736,12 @@
         <p>The primary input is a text field that accepts anything. <strong>"Paid 450 for dinner at Social"</strong> — Justlog extracts the amount (₹450), the category (Food), the merchant (Social), and timestamps it. No fields. No dropdowns.</p>
         <p>The AI uses Gemini to parse intent in real time. But the critical design decision was: <strong>always confirm before saving.</strong> A parsed preview appears — the user sees exactly what got extracted, can edit any field, then confirms. This single confirmation step solved trust. Users don't feel out of control even when the AI is doing the work.</p>
         <p>Quick chips sit below the input for the most common transactions — "Coffee ☕", "Lunch 🍱", "Auto 🛺". One tap, pre-filled. For users who log the same things every day, it becomes muscle memory within a week.</p>
+        <div class="ux-tags">
+          <span class="ux-tag"><span class="ux-dot"></span>Hick's Law</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Jakob's Law</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Cognitive Load ↓</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Feedback Loop</span>
+        </div>
       </div>
       <div class="feature-visual">
         <div class="feature-visual-placeholder">
@@ -631,6 +762,11 @@
         <p>The most natural moment to log an expense is right when it happens — stepping out of a cab, carrying groceries, at a restaurant. <strong>Those are exactly the moments when typing is awkward.</strong></p>
         <p>Voice input was built not as a novelty, but as the primary input for users on the move. Speak "spent three hundred on petrol," and Gemini's speech-to-text combined with the same NLP pipeline handles the rest. The same confirmation step applies — so voice doesn't feel like a "fire and forget" risk.</p>
         <p>The key design challenge was latency. AI parsing adds time. The solution was optimistic UI — the input shows the transcribed text immediately while parsing runs in the background, so users see progress without waiting for a spinner.</p>
+        <div class="ux-tags">
+          <span class="ux-tag"><span class="ux-dot"></span>Feedback Loop</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Error Prevention</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Mental Model: Voice notes</span>
+        </div>
       </div>
       <div class="feature-visual">
         <div class="feature-visual-placeholder" style="background: linear-gradient(135deg, #EDE9FE, #F5F3FF);">
@@ -649,6 +785,11 @@
         <p>Spaces are shared logging environments — a flat, a trip, a couple's account. Any member can log an expense. Everyone sees the full picture. <strong>No one has to chase a WhatsApp thread to remember who paid for dinner.</strong></p>
         <p>The fundamental design question was: should Spaces track debts (like Splitwise) or just shared context? I chose shared context. Justlog doesn't tell you who owes what — it tells you what your group spent and who logged it. Why? Because debt-tracking adds social tension. Context-sharing builds collective awareness.</p>
         <p>When someone logs in a Space, other members see it in real time. Approvals are required for certain actions — a careful system designed to prevent accidental edits while keeping the experience fluid. Pending request cards appear at the top of the feed, dismissible immediately after action.</p>
+        <div class="ux-tags">
+          <span class="ux-tag"><span class="ux-dot"></span>Mental Model: Group chat</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Error Prevention</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Progressive Disclosure</span>
+        </div>
       </div>
       <div class="feature-visual">
         <div class="feature-visual-placeholder" style="background: #F0F9FF;">
@@ -669,6 +810,11 @@
         <p>Most finance apps show you charts. Pie charts of categories you already know you overspent in. <strong>Justlog's Stories feature was designed to surface insight, not just data.</strong></p>
         <p>Stories are AI-generated summaries of your spending behaviour — written in plain language, not finance-speak. "You spent 40% more on food this week than last. Most of it was weekday lunches." That's useful. A pie chart labelled "Food & Dining: 38%" is not.</p>
         <p>The Stories interface borrows the familiar Instagram story format — full-screen cards you swipe through. The design decision here was intentional: familiar navigation patterns reduce cognitive load when the content itself is new.</p>
+        <div class="ux-tags">
+          <span class="ux-tag"><span class="ux-dot"></span>Jakob's Law</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Mental Model: Instagram Stories</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Cognitive Load ↓</span>
+        </div>
       </div>
       <div class="feature-visual">
         <div class="feature-visual-placeholder" style="background: linear-gradient(160deg, #1a1a2e, #7C3AED);">
@@ -687,6 +833,12 @@
         <p>For new users, Justlog shows a paywall without a close button. This was the most debated decision in the entire product. <strong>Conventional UX wisdom says always give users an exit.</strong> I disagreed — and here's why.</p>
         <p>Justlog's free tier is fully functional. The paywall isn't a "pay to see anything" gate — it's a <em>trial moment.</em> New users who see the paywall haven't logged a single transaction yet. The paywall explains what they get, offers a 7-day free trial, and lets them start immediately with no credit card. The "no X button" forces a moment of decision — try it, or leave.</p>
         <p>The data-backed reasoning: users who skip onboarding paywalls and go straight to the free tier almost never convert. Users who start a trial experience the product's value before making any decision. <strong>The paywall is designed for the user's long-term benefit, not just the business's.</strong></p>
+        <div class="ux-tags">
+          <span class="ux-tag"><span class="ux-dot"></span>Progressive Disclosure</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Aesthetic-Usability Effect</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Feedback Loop</span>
+          <span class="ux-tag"><span class="ux-dot"></span>Error Prevention</span>
+        </div>
       </div>
       <div class="feature-visual">
         <div class="feature-visual-placeholder" style="background: #0A0A0A;">
