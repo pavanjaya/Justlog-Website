@@ -221,14 +221,17 @@
     }
 
     /* ── FEATURE ROWS ── */
+    #features { padding: 0 24px 48px; }
     .feature-row {
       display: flex; align-items: center;
-      max-width: 1100px; margin: 0 auto;
+      max-width: 1100px; margin: 0 auto 20px;
       padding: 80px 48px;
       gap: 80px;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 28px;
     }
     .feature-row.flip { flex-direction: row-reverse; }
-    .feature-row + .feature-row { border-top: 1px solid var(--border); }
+    .feature-row + .feature-row { border-top: none; }
 
     .feature-text { flex: 1; max-width: 460px; }
 
