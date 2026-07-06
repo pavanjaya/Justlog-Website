@@ -5,95 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — Justlog</title>
   <meta name="description" content="Justlog Privacy Policy — how we collect, use, and protect your data." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { min-height: 100vh; background: #fafafa; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; color: #111; }
 
-    /* Nav */
-    .nav { background: #fff; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 10; }
-    .nav-inner { max-width: 680px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-    .nav-logo span { font-size: 16px; font-weight: 700; color: #9748FF; letter-spacing: -0.3px; }
-    .nav-link { font-size: 13px; font-weight: 500; color: #888; text-decoration: none; }
-    .nav-link:hover { color: #9748FF; }
+    :root {
+      --purple: #7C3AED;
+      --purple-2: #9748FF;
+      --purple-soft: rgba(124,58,237,0.08);
+      --bg: #FEFEFC;
+      --text: #000000;
+      --muted: #000000;
+      --muted2: #9CA3AF;
+      --green: #059669;
+    }
 
-    /* Hero */
-    .hero { background: linear-gradient(135deg, rgba(151,72,255,0.06) 0%, rgba(151,72,255,0.02) 100%); border-bottom: 1px solid rgba(151,72,255,0.1); padding: 48px 24px 40px; }
-    .hero-inner { max-width: 680px; margin: 0 auto; }
-    .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(151,72,255,0.08); border-radius: 20px; padding: 4px 12px; margin-bottom: 16px; }
-    .badge span { font-size: 11px; font-weight: 600; color: #9748FF; letter-spacing: 0.04em; }
-    .hero h1 { font-size: 36px; font-weight: 800; color: #111; letter-spacing: -0.8px; margin: 0 0 8px; }
-    .hero p { font-size: 16px; color: #666; margin: 0 0 16px; line-height: 1.6; }
-    .hero .meta { font-size: 13px; color: #aaa; }
+    body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
 
-    /* Content */
-    .content { max-width: 680px; margin: 0 auto; padding: 40px 24px 80px; }
-    .section { margin-bottom: 36px; }
-    .section h2 { font-size: 18px; font-weight: 700; color: #111; letter-spacing: -0.3px; margin: 0 0 14px; }
-    .section h3 { font-size: 14px; font-weight: 700; color: #333; margin: 16px 0 8px; }
-    .body { font-size: 15px; color: #444; line-height: 1.7; }
-    .body + .body { margin-top: 12px; }
-    ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
-    li { font-size: 14px; color: #555; line-height: 1.6; }
-    .note { background: rgba(151,72,255,0.05); border: 1px solid rgba(151,72,255,0.12); border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #666; line-height: 1.6; margin: 10px 0; }
-    .card { background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
-    .card-title { font-size: 14px; font-weight: 600; color: #111; margin-bottom: 4px; }
-    .card-desc { font-size: 13px; color: #666; line-height: 1.5; }
-    .contact-box { background: #fff; border: 1.5px solid rgba(151,72,255,0.15); border-radius: 14px; padding: 18px 20px; }
-    .contact-row { display: flex; gap: 12px; font-size: 14px; margin-bottom: 8px; }
-    .contact-row:last-child { margin-bottom: 0; }
-    .contact-label { color: #aaa; min-width: 110px; }
-    .contact-value { color: #111; font-weight: 500; }
-    a { color: #9748FF; text-decoration: none; }
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+      background: rgba(254,254,252,0.85);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    }
+    .nav-logo img { height: 38px; width: auto; display: block; }
+    .nav-link { font-size: 14px; font-weight: 500; color: #555; text-decoration: none; padding: 8px 16px; border-radius: 10px; transition: color 0.15s; }
+    .nav-link:hover { color: var(--text); }
+
+    /* HERO */
+    .hero-wrap { padding-top: 72px; background: var(--bg); }
+    .hero {
+      max-width: 760px; margin: 0 auto;
+      padding: 80px 48px 56px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--purple-soft);
+      border-radius: 100px; padding: 5px 16px 5px 8px;
+      font-size: 12px; font-weight: 700; color: var(--purple);
+      letter-spacing: 0.04em; margin-bottom: 28px;
+    }
+    .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); }
+    .hero h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 900; letter-spacing: -2px; line-height: 1.05; color: var(--text); margin-bottom: 16px; }
+    .hero h1 em { font-style: normal; color: var(--purple); }
+    .hero-sub { font-size: 18px; color: #555; line-height: 1.65; margin-bottom: 16px; font-weight: 400; }
+    .hero-meta { font-size: 13px; color: var(--muted2); }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: #F0F0EE; max-width: 760px; margin: 0 auto; }
+
+    /* CONTENT */
+    .content { max-width: 760px; margin: 0 auto; padding: 56px 48px 96px; }
+
+    .section { margin-bottom: 48px; }
+    .section h2 { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.4px; margin-bottom: 16px; }
+    .section h3 { font-size: 14px; font-weight: 700; color: #333; margin: 20px 0 10px; letter-spacing: -0.1px; }
+    p { font-size: 15px; color: #444; line-height: 1.75; }
+    p + p { margin-top: 12px; }
+    ul { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+    li { font-size: 14px; color: #555; line-height: 1.65; }
+    b { color: #111; }
+    a { color: var(--purple); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* Footer */
-    .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .footer-copy { font-size: 13px; color: #bbb; }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a { font-size: 13px; color: #888; text-decoration: none; }
-    .footer-links a.cta { color: #9748FF; font-weight: 500; }
-    .footer-links a:hover { color: #9748FF; }
+    .note {
+      background: var(--purple-soft);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      font-size: 13px; color: #555; line-height: 1.6; margin: 12px 0;
+    }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 28px; }
+    .cards { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .card { background: #fff; border: 1px solid #EBEBEA; border-radius: 14px; padding: 16px 18px; }
+    .card-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .card-desc { font-size: 13px; color: #666; line-height: 1.6; }
+
+    .contact-box { background: #fff; border: 1.5px solid #EBEBEA; border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .contact-row { display: flex; gap: 16px; font-size: 14px; }
+    .contact-label { color: var(--muted2); min-width: 120px; font-weight: 500; }
+    .contact-value { color: var(--text); font-weight: 600; }
+
+    /* FOOTER */
+    footer { background: var(--bg); border-top: 1px solid #F0F0EE; padding: 72px 48px 48px; }
+    .footer-top { display: flex; gap: 64px; max-width: 1100px; margin: 0 auto 48px; flex-wrap: wrap; }
+    .footer-brand { max-width: 260px; }
+    .footer-brand img { height: 28px; width: auto; }
+    .footer-tagline { font-size: 13px; color: #777; margin-top: 10px; line-height: 1.6; }
+    .footer-col h5 { font-size: 11px; font-weight: 700; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .footer-col a { display: block; font-size: 13px; color: #555; text-decoration: none; margin-bottom: 8px; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1100px; margin: 0 auto; padding-top: 32px; border-top: 1px solid #F0F0EE; }
+    .footer-copy { font-size: 12px; color: var(--muted2); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .hero { padding: 64px 24px 40px; }
+      .content { padding: 40px 24px 72px; }
+      footer { padding: 56px 20px 36px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 6px; }
     }
   </style>
 </head>
 <body>
 
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="https://justlog.in" class="nav-logo">
-        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-          <rect width="32" height="32" rx="8" fill="#9748FF" fill-opacity="0.1"/>
-          <path d="M17 6L7 18h9l-1 8 10-12h-9l1-8z" stroke="#9748FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>Justlog</span>
-      </a>
-      <a href="terms.html" class="nav-link">Terms of Service →</a>
-    </div>
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="logo-black.svg" alt="Justlog" />
+    </a>
+    <a href="terms.html" class="nav-link">Terms of Service →</a>
   </nav>
 
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="badge">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9748FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        </svg>
-        <span>PRIVACY POLICY</span>
+  <div class="hero-wrap">
+    <div class="hero">
+      <div class="eyebrow">
+        <div class="eyebrow-dot"></div>
+        PRIVACY POLICY
       </div>
-      <h1>Your privacy matters.</h1>
-      <p>We keep your financial data private, secure, and fully under your control.</p>
-      <p class="meta">Last updated: June 23, 2025 · Effective: June 23, 2025</p>
+      <h1>Your privacy <em>matters.</em></h1>
+      <p class="hero-sub">We keep your financial data private, secure, and fully under your control.</p>
+      <p class="hero-meta">Last updated: June 23, 2025 · Effective: June 23, 2025</p>
     </div>
   </div>
+
+  <div class="divider"></div>
 
   <div class="content">
 
     <div class="section">
-      <p class="body">Justlog ("we", "us", or "our") is a personal finance journaling application operated by Pavan Jaya, India. This Privacy Policy explains how we collect, use, store, and protect your information. By using the App, you agree to the terms of this Policy.</p>
-      <p class="body" style="margin-top:12px">This Policy is published in compliance with the <b>Information Technology Act, 2000</b> and the <b>IT (SPDI) Rules, 2011</b>.</p>
+      <p>Justlog ("we", "us", or "our") is a personal finance journaling application operated by Pavan Jaya, India. This Privacy Policy explains how we collect, use, store, and protect your information. By using the App, you agree to the terms of this Policy.</p>
+      <p>This Policy is published in compliance with the <b>Information Technology Act, 2000</b> and the <b>IT (SPDI) Rules, 2011</b>.</p>
     </div>
 
     <div class="section">
@@ -121,18 +167,18 @@
       <h2>2. How We Use Your Information</h2>
       <ul>
         <li>To provide and operate the Justlog service</li>
-        <li>To process your text using AI (Google Gemini) to parse transactions — your input text is sent to Google's API momentarily and is not stored or used for training</li>
+        <li>To process your text using AI (Google Gemini) to parse transactions — your input is sent to Google's API momentarily and is not stored or used for training</li>
         <li>To sync your data across devices</li>
         <li>To send transactional emails (account confirmation, password reset)</li>
         <li>To improve the App based on anonymised usage patterns</li>
       </ul>
-      <p class="body" style="margin-top:12px">We do <b>not</b> sell, rent, or share your personal data with third parties for marketing purposes.</p>
+      <p style="margin-top:14px">We do <b>not</b> sell, rent, or share your personal data with third parties for marketing purposes.</p>
     </div>
 
     <div class="section">
       <h2>3. Data Storage and Security</h2>
-      <p class="body">Your data is stored on <b>Supabase</b> (AWS infrastructure). Security measures include:</p>
-      <ul style="margin-top:10px">
+      <p>Your data is stored on <b>Supabase</b> (AWS infrastructure). Security measures include:</p>
+      <ul>
         <li>Encryption in transit: All data transmitted over HTTPS/TLS</li>
         <li>Encryption at rest: Database storage encrypted by Supabase/AWS</li>
         <li>Row-level security: Your data is isolated — no other user can access your entries</li>
@@ -142,25 +188,12 @@
 
     <div class="section">
       <h2>4. Third-Party Services</h2>
-      <div class="card">
-        <div class="card-title">Supabase</div>
-        <div class="card-desc">Database, authentication, and storage. Your account and transaction data is stored here.</div>
-      </div>
-      <div class="card">
-        <div class="card-title">Google Gemini API</div>
-        <div class="card-desc">Parses your typed text into structured transactions. Your input is sent to Google's API momentarily. Google does not use API data for model training by default.</div>
-      </div>
-      <div class="card">
-        <div class="card-title">Razorpay</div>
-        <div class="card-desc">Payment processing for subscriptions (India). We never store your payment card details — all payment data is handled securely by Razorpay.</div>
-      </div>
-      <div class="card">
-        <div class="card-title">Stripe</div>
-        <div class="card-desc">Payment processing for international subscriptions. We never store your payment card details.</div>
-      </div>
-      <div class="card">
-        <div class="card-title">Vercel</div>
-        <div class="card-desc">App hosting and delivery. Processes request metadata for routing.</div>
+      <div class="cards">
+        <div class="card"><div class="card-title">Supabase</div><div class="card-desc">Database, authentication, and storage. Your account and transaction data is stored here.</div></div>
+        <div class="card"><div class="card-title">Google Gemini API</div><div class="card-desc">Parses your typed text into structured transactions. Your input is sent to Google's API momentarily. Google does not use API data for model training by default.</div></div>
+        <div class="card"><div class="card-title">Razorpay</div><div class="card-desc">Payment processing for subscriptions (India). We never store your payment card details — all payment data is handled securely by Razorpay.</div></div>
+        <div class="card"><div class="card-title">Stripe</div><div class="card-desc">Payment processing for international subscriptions. We never store your payment card details.</div></div>
+        <div class="card"><div class="card-title">Vercel</div><div class="card-desc">App hosting and delivery. Processes request metadata for routing.</div></div>
       </div>
     </div>
 
@@ -173,72 +206,84 @@
         <li>Withdraw consent: Stop using the App at any time</li>
         <li>Grievance redressal: Contact our Grievance Officer below</li>
       </ul>
-      <p class="body" style="margin-top:12px">We respond to all requests within <b>30 days</b> as required under SPDI Rule 5(7).</p>
+      <p style="margin-top:14px">We respond to all requests within <b>30 days</b> as required under SPDI Rule 5(7).</p>
     </div>
 
     <div class="section">
       <h2>6. Administrative Access</h2>
-      <p class="body">As the operator of Justlog, we have administrative access to the database for maintenance, security, and bug resolution purposes. This access is:</p>
-      <ul style="margin-top:10px">
+      <p>As the operator of Justlog, we have administrative access to the database for maintenance, security, and bug resolution purposes. This access is:</p>
+      <ul>
         <li>Used only when necessary — such as investigating a reported issue or ensuring system integrity</li>
         <li>Never used to read, browse, or monitor individual user entries or financial data</li>
         <li>Subject to the same confidentiality obligations as this Privacy Policy</li>
       </ul>
-      <p class="body" style="margin-top:12px">Your transaction data is isolated per account using Row Level Security (RLS). No other user — or any unauthorised party — can access your entries through the app.</p>
+      <p style="margin-top:14px">Your transaction data is isolated per account using Row Level Security (RLS). No other user — or any unauthorised party — can access your entries through the app.</p>
     </div>
 
     <div class="section">
       <h2>7. Data Retention</h2>
-      <p class="body">We retain your data as long as your account is active. If you delete your account, all personal data is permanently deleted within <b>30 days</b>.</p>
+      <p>We retain your data as long as your account is active. If you delete your account, all personal data is permanently deleted within <b>30 days</b>.</p>
     </div>
 
     <div class="section">
       <h2>8. Children's Privacy</h2>
-      <p class="body">Justlog is not intended for users under 13 years of age. We do not knowingly collect data from children.</p>
+      <p>Justlog is not intended for users under 13 years of age. We do not knowingly collect data from children.</p>
     </div>
 
     <div class="section">
       <h2>9. Changes to This Policy</h2>
-      <p class="body">We may update this Privacy Policy from time to time. We will notify you of significant changes via email or an in-app notice. Continued use of the App after changes constitutes acceptance of the updated Policy.</p>
+      <p>We may update this Privacy Policy from time to time. We will notify you of significant changes via email or an in-app notice. Continued use of the App after changes constitutes acceptance of the updated Policy.</p>
     </div>
 
     <div class="section">
       <h2>10. Grievance Officer</h2>
-      <p class="body" style="margin-bottom:12px">In accordance with the IT Act, 2000 and SPDI Rules:</p>
+      <p>In accordance with the IT Act, 2000 and SPDI Rules:</p>
       <div class="contact-box">
-        <div class="contact-row">
-          <span class="contact-label">Name</span>
-          <span class="contact-value">Pavan Jaya</span>
-        </div>
-        <div class="contact-row">
-          <span class="contact-label">Email</span>
-          <span class="contact-value"><a href="mailto:support@justlog.ai">support@justlog.ai</a></span>
-        </div>
-        <div class="contact-row">
-          <span class="contact-label">Address</span>
-          <span class="contact-value">India</span>
-        </div>
-        <div class="contact-row">
-          <span class="contact-label">Response time</span>
-          <span class="contact-value">Within 30 days</span>
-        </div>
+        <div class="contact-row"><span class="contact-label">Name</span><span class="contact-value">Pavan Jaya</span></div>
+        <div class="contact-row"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:support@justlog.ai">support@justlog.ai</a></span></div>
+        <div class="contact-row"><span class="contact-label">Address</span><span class="contact-value">India</span></div>
+        <div class="contact-row"><span class="contact-label">Response time</span><span class="contact-value">Within 30 days</span></div>
       </div>
     </div>
 
     <div class="section">
       <h2>11. Contact Us</h2>
-      <p class="body">For any privacy questions, email <a href="mailto:support@justlog.ai">support@justlog.ai</a>.</p>
-    </div>
-
-    <div class="footer">
-      <span class="footer-copy">© 2025 Justlog</span>
-      <div class="footer-links">
-        <a href="terms.html">Terms of Service</a>
-        <a href="https://justlog.in" class="cta">Open App →</a>
-      </div>
+      <p>For any privacy questions, email <a href="mailto:support@justlog.ai">support@justlog.ai</a>.</p>
     </div>
 
   </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo-black.svg" alt="Justlog" />
+        <p class="footer-tagline">The simplest way to track money. Type what you spent, we handle the rest.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#how">How it works</a>
+        <a href="index.html#download">Download</a>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <a href="index.html#faq">FAQ</a>
+        <a href="mailto:support@justlog.ai">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="footer-col">
+        <h5>Download</h5>
+        <a href="#">Google Play</a>
+        <a href="https://justlog.in" target="_blank">Web App</a>
+        <a href="#">iOS (soon)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Justlog · A brand of <span style="color:var(--text);font-weight:500;">Hueness Design Private Limited</span> · Made with ♥ in India</div>
+      <div class="footer-copy"><a href="privacy.html" style="color:inherit;text-decoration:none;">Privacy</a> · <a href="terms.html" style="color:inherit;text-decoration:none;">Terms</a></div>
+    </div>
+  </footer>
 
 </body>
 </html>
